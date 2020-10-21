@@ -103,16 +103,16 @@ void loop()
         if below background CO2 levels or above range (useful to validate sensor). You can use the 
         usual documented command with getCO2(false) */
 
-        //CO2 = myMHZ19.getCO2();                             // Request CO2 (as ppm)
-        CO2 = 203;
+        CO2 = myMHZ19.getCO2();                             // Request CO2 (as ppm)
+        //CO2 = 203;
         
         Serial.print("CO2 (ppm): ");                      
         Serial.println(CO2);                                
 
         int8_t Temp;
-        //Temp = myMHZ19.getTemperature();                     // Request Temperature (as Celsius)
+        Temp = myMHZ19.getTemperature();                     // Request Temperature (as Celsius)
         
-        Temp = 22;
+        //Temp = 22;
         Serial.print("Temperature (C): ");                  
         Serial.println(Temp);                               
 
