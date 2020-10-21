@@ -24,7 +24,7 @@ SoftwareSerial mySerial(RX_PIN, TX_PIN);                   // (Uno example) crea
 
 unsigned long getDataTimer = 0;
 
-int millisWait = 5000; // 5 sec
+int millisWait = 60000; // 5 sec
 
 int packetlength=80;
 
