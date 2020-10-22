@@ -24,7 +24,7 @@ SoftwareSerial mySerial(RX_PIN, TX_PIN);                   // (Uno example) crea
 
 unsigned long getDataTimer = 0;
 
-int millisWait = 60000; // 5 sec
+int millisWait = 300000; // 5 min
 
 int packetlength=80;
 
@@ -41,12 +41,21 @@ RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
     StaticJsonDocument<200> doc;
 
-int mothled = 5;
+//int mothled = 5;
 
 void setup() 
 {
 
-pinMode(mothled, OUTPUT);
+//delay(2000);
+ mySerial.begin(BAUDRATE);                               // (Uno example) device to MH-Z19 serial start   
+  //delay(1000);
+  //mySerial.begin(BAUDRATE, SERIAL_8N1, RX_PIN, TX_PIN); // (ESP32 Example) device to MH-Z19 serial start   
+    myMHZ19.begin(mySerial);                                // *Serial(Stream) refence must be passed to library begin(). 
+
+    myMHZ19.autoCalibration(false);    
+
+    //delay(2000);
+//pinMode(mothled, OUTPUT);
 
   pinMode(RFM95_RST, OUTPUT);
   digitalWrite(RFM95_RST, HIGH);
@@ -54,11 +63,7 @@ pinMode(mothled, OUTPUT);
   // put your setup code here, to run once:
   Serial.begin(9600);         //Opens the main serial port to communicate with the computer
 
-   mySerial.begin(BAUDRATE);                               // (Uno example) device to MH-Z19 serial start   
-    //mySerial.begin(BAUDRATE, SERIAL_8N1, RX_PIN, TX_PIN); // (ESP32 Example) device to MH-Z19 serial start   
-    myMHZ19.begin(mySerial);                                // *Serial(Stream) refence must be passed to library begin(). 
-
-    myMHZ19.autoCalibration(false);                              // Turn auto calibration ON (OFF autoCalibration(false))
+                            // Turn auto calibration ON (OFF autoCalibration(false))
     
   
   Serial.println("Feather LoRa TX Test!");
@@ -89,7 +94,8 @@ pinMode(mothled, OUTPUT);
   // If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
   // you can set transmitter powers from 5 to 23 dBm:
   rf95.setTxPower(23, false);
-  
+
+  getDataTimer=millisWait; // trigger the first measurement
 }
 
 void loop() 
@@ -134,11 +140,11 @@ char radiopacket[70];
   delay(10);
   rf95.waitPacketSent();
 Serial.println("packet sent.");
-  digitalWrite(mothled, HIGH);   // turn the LED on (HIGH is the voltage level)
+  /*digitalWrite(mothled, HIGH);   // turn the LED on (HIGH is the voltage level)
   delay(100);                       // wait for a second
   digitalWrite(mothled, LOW);    // turn the LED off by making the voltage LOW
   delay(100);                       // wait for a second
-
+*/
      getDataTimer = millis();
     }
 }
