@@ -170,7 +170,7 @@ serializeJson(updoc, Serial);
         http.end();
     }
 
-    delay(5000);
+    delay(60000); // wait a minute until the next post
       
     }
 } // end if (rf95.available())

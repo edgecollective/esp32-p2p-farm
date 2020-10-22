@@ -24,7 +24,7 @@ SoftwareSerial mySerial(RX_PIN, TX_PIN);                   // (Uno example) crea
 
 unsigned long getDataTimer = 0;
 
-int millisWait = 300000; // 5 min
+int millisWait = 10000; // 10 sec
 
 int packetlength=80;
 
@@ -46,15 +46,15 @@ RH_RF95 rf95(RFM95_CS, RFM95_INT);
 void setup() 
 {
 
-//delay(2000);
+delay(2000);
  mySerial.begin(BAUDRATE);                               // (Uno example) device to MH-Z19 serial start   
-  //delay(1000);
+  delay(1000);
   //mySerial.begin(BAUDRATE, SERIAL_8N1, RX_PIN, TX_PIN); // (ESP32 Example) device to MH-Z19 serial start   
     myMHZ19.begin(mySerial);                                // *Serial(Stream) refence must be passed to library begin(). 
 
-    myMHZ19.autoCalibration(false);    
+    //myMHZ19.autoCalibration(false);    
 
-    //delay(2000);
+    delay(2000);
 //pinMode(mothled, OUTPUT);
 
   pinMode(RFM95_RST, OUTPUT);
